@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        @font-face {
+            font-family:Font1 ;
+            src: url(Fontes/SuperSundayPersonalUse.ttf);
+        }
+
+        @font-face {
+            font-family: Font2;
+            src: url(Fontes/Starz2.ttf);
+        }
+        body{
+            background-color: #5f9ea0;
+        }
+
+        h1{
+            font-family: Font1;
+            font-size: 62px;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 4px 4px #375a5c;
+        }
+
+        h2{
+            
+            margin-left: 33%;
+            font-family: Font2;
+            color: #ffffff;
+            font-size: 50px;
+            font-weight: 100;
+
+        }
+
+        h3{
+            font-family: Font1;
+            color: #ffffff;
+            text-shadow: 4px 4px #375a5c;
+            font-weight: 100;
+            text-align: center;
+        }
+
+       .board{
+        margin-left: 34%;
+        display: grid;
+        grid-template-columns: repeat(3, 150px);
+        grid-template-rows: repeat(3, 99px);
+        gap: 10px;
+       }
+
+       .cell{
+        display: flex;
+        justify-content:center ;
+        align-items: center;
+        color: #1f3233;
+        background-color: #ededed;
+        border: 3px solid #284142;
+        border-radius: 10px;
+        box-shadow: 3px 4px #36595a;
+        align-items: center;
+        font-size: 64px;
+        cursor: pointer;
+        font-family: Font1;
+       }
+
+    </style>
+</head>
+<body>
+    <h1>Jogo da Velha</h1>
+    <h2>KKKKKKKKKKKK</h2>
+
+    <div class="board" id="board">
+        <div class="cell" onclick="cellClicked(0)"></div>
+        <div class="cell" onclick="cellClicked(1)"></div>
+        <div class="cell" onclick="cellClicked(2)"></div>
+        <div class="cell" onclick="cellClicked(3)"></div>
+        <div class="cell" onclick="cellClicked(4)"></div>
+        <div class="cell" onclick="cellClicked(5)"></div>
+        <div class="cell" onclick="cellClicked(6)"></div>
+        <div class="cell" onclick="cellClicked(7)"></div>
+        <div class="cell" onclick="cellClicked(8)"></div>
+    </div>
+
+    <script>
+       let currentPlayer = 'X';
+       let board = ['', '', '', '', '', '', '', '', ''];
+
+      function cellClicked(index) {
+        if (board[index] === '') {
+            board[index] = currentPlayer;
+            document.getElementById('board').children[index]. innerText = currentPlayer;
+            checkWinner();
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+        
+    }
+      
+
+      function checkWinner() {
+        const winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for (let condition of winConditions) {
+            const [a, b, c] = condition;
+            if (board[a] !== '' && board[a] === board[b] && board[a] === board[c]) {
+                alert(`JOGADOR  ${board[a]} VENCEU!`);
+                resetBoard();
+                return;
+            }
+        }
+
+        if (!board.includes('')) {
+            alert('EMPATE!');
+            resetBoard();
+        }
+
+        function resetBoard() {
+            currentPlayer = 'X';
+            board = ['', '', '', '', '', '', '', '', ''];
+            for (let i = 0; i < 9; i++) {
+                document.getElementById('board').children      [i].innerText = '';
+            }
+        }
+
+
+
+      }
+
+    </script>
+    <h2>KKKKKKKKKKKK</h2>
+
+    <footer>
+        <h3>
+            Made by David Rocha &copy; &reg;
+        </h3>
+    </footer>
+
+</body>
+</html>
